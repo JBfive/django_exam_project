@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Success</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		{% load static %}
+	    <link rel="stylesheet" type="text/css" href="{% static 'travel_buddy/css/main.css' %}">
+	</head>
+	<body>
+		<div id='main'>
+			<div class='header'>
+				<div class='welcome'>
+					<h1>Add A Trip</h1>
+				</div>
+					<div class='buttons'>
+						<form action="/dashboard" method="post" name="go_home">
+							{% csrf_token %}
+							<button type="submit" class="btn btn-default">Home</button>
+						</form>
+						<form action="/clear" name="logout_form">
+							{% csrf_token %}
+							<button type="submit" class="btn btn-default">Logout</button>
+						</form>
+					</div>
+			</div>
+			
+				<form action="/make_plan" method="post" name='add_plan'>
+					{% csrf_token %}
+					<p>Destination:<input type="text" name="destination"></p>
+					<p>Description:<input type="text" name="desc"></p>
+					<p>Travel Date From:<input type="date" name="date_from"></p>
+					<p>Travel Date To:<input type="date" name="date_to"></p>
+					<p><input type="submit" name="add" value='add'></p>
+				</form>
+				{% if messages %}
+					<ul class="messages">
+				    	{% for message in messages %}
+				    		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+				        		{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+				        		{{ message }}
+				    		</li>
+				    	{% endfor %}
+					</ul>
+				{% endif %}
+			
+			
+		</div>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Success</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		{% load static %}
+	    <link rel="stylesheet" type="text/css" href="{% static 'travel_buddy/css/main.css' %}">
+	</head>
+	<body>
+		<div id='main'>
+			<div class='header'>
+				<div class='welcome'>
+					<h1>Welcome {{ request.session.name }}</h1>
+				</div>
+					<div class='buttons'>
+						<form action="/dashboard" method="post" name="go_home">
+							{% csrf_token %}
+							<button type="submit" class="btn btn-default">Home</button>
+						</form>
+						<form action="/clear" method="post" name="logout_form">
+							{% csrf_token %}
+							<button type="submit" class="btn btn-default">Logout</button>
+						</form>
+					</div>
+			</div>
+			<h1>{{trips.destination}}</h1>
+			<h2>Planned By: {{trips.planner.first.name}}</h2>
+			<h2>Description: {{trips.desc}}</h2>
+			<h2>Travel Date From: {{trips.date_from}}</h2>
+			<h2>Travel Date To: {{trips.date_to}}</h2>
+			<br>
+			<br>
+			<h1>Other user's joining the trip:</h1>
+			{% for j in joins %}
+			<h2>{{ j.name }}</h2>
+			{% endfor %}
+
+		</div>
+	</body>
+</html>
